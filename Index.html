@@ -23,26 +23,26 @@
       box-sizing: border-box;
     }
 
-    .active {
+    .screen.active {
       display: block;
     }
 
     h1 {
       font-size: 2.2rem;
-      margin-bottom: 15px;
+      margin-bottom: 14px;
     }
 
     p {
       font-size: 1.1rem;
-      max-width: 600px;
+      max-width: 620px;
       margin: 0 auto 20px;
       line-height: 1.6;
     }
 
     a.music-link {
       color: #fff;
-      text-decoration: underline;
       font-weight: 600;
+      text-decoration: underline;
       cursor: pointer;
     }
 
@@ -66,19 +66,24 @@
 
 <body>
 
-<!-- Background Music -->
-<audio id="music" src="romeo-juliet.mp3" loop></audio>
+<!-- BACKGROUND MUSIC (USER-TRIGGERED ONLY) -->
+<audio id="music" preload="auto">
+  <source src="romeo-juliet.mp3" type="audio/mpeg">
+</audio>
 
 <!-- SCREEN 1 -->
 <div id="s1" class="screen active">
   <h1>Hey my Bear 🧸❤️</h1>
+
   <p>
     <a class="music-link" onclick="playMusic()">Tap here for some music 🎶</a>
   </p>
+
   <p>
     From the moment you came into my life,  
     everything started feeling softer, warmer, and more… us.
   </p>
+
   <button onclick="show('s2')">Bear, come closer 💕</button>
 </div>
 
@@ -127,14 +132,21 @@
 
 <script>
   function show(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.screen')
+      .forEach(s => s.classList.remove('active'));
     document.getElementById(id).classList.add('active');
   }
 
   function playMusic() {
     const m = document.getElementById("music");
     m.volume = 0.4;
-    m.play();
+
+    const p = m.play();
+    if (p !== undefined) {
+      p.catch(() => {
+        alert("Tap once more to start the music 🎶");
+      });
+    }
   }
 
   function sendYes() {
@@ -145,7 +157,6 @@
       "https://wa.me/919289472281?text=" + msg;
   }
 
-  // VERY FAST runaway 😈
   function runAway() {
     const btn = document.getElementById("runaway");
     const x = Math.random() * 600 - 300;
