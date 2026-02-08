@@ -5,7 +5,7 @@
   <title>For My Bear ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Clean readable font -->
+  <!-- Clean, readable font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
@@ -69,7 +69,7 @@
       color: #fff;
       cursor: pointer;
       box-shadow: 0 8px 18px rgba(0,0,0,0.25);
-      transition: transform 0.15s ease;
+      transition: transform 0.2s ease;
     }
 
     button:hover {
@@ -78,7 +78,6 @@
 
     .no-btn {
       background: #444;
-      position: relative;
     }
 
     .hidden {
@@ -102,7 +101,7 @@
 </head>
 <body>
 
-  <!-- Background Music (plays after click) -->
+  <!-- Background Music (plays ONLY after click) -->
   <audio id="bgMusic" src="romeo-juliet.mp3" loop></audio>
 
   <!-- Section 1 -->
@@ -159,13 +158,7 @@
     </p>
     <div class="heart">💍❤️</div>
     <button onclick="sendYes()">YES 💖</button>
-    <button
-      id="runaway"
-      class="no-btn"
-      onmouseover="runAway()"
-      ontouchstart="runAway()">
-      NO 🙈
-    </button>
+    <button id="runaway" class="no-btn" onmouseover="runAway()">NO 🙈</button>
   </div>
 
   <div class="floating-hearts" id="hearts"></div>
@@ -194,13 +187,10 @@
         "https://wa.me/919289472281?text=" + msg;
     }
 
-    // FAST runaway button 😈
     function runAway() {
       const btn = document.getElementById("runaway");
-      const x = Math.random() * 400 - 200;
-      const y = Math.random() * 400 - 200;
-
-      btn.style.transition = "transform 0.08s linear";
+      const x = Math.random() * 200 - 100;
+      const y = Math.random() * 200 - 100;
       btn.style.transform = `translate(${x}px, ${y}px)`;
     }
 
