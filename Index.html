@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Bear ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      color: #fff;
+      text-align: center;
+    }
+
+    .screen {
+      min-height: 100vh;
+      display: none;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .active {
+      display: block;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    a.music-link {
+      color: #fff;
+      text-decoration: underline;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 14px 34px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 999px;
+      background: #ff4b5c;
+      color: #fff;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .no-btn {
+      background: #444;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="music" src="romeo-juliet.mp3" loop></audio>
+
+<!-- SCREEN 1 -->
+<div id="s1" class="screen active">
+  <h1>Hey my Bear 🧸❤️</h1>
+  <p>
+    <a class="music-link" onclick="playMusic()">Tap here for some music 🎶</a>
+  </p>
+  <p>
+    From the moment you came into my life,  
+    everything started feeling softer, warmer, and more… us.
+  </p>
+  <button onclick="show('s2')">Bear, come closer 💕</button>
+</div>
+
+<!-- SCREEN 2 -->
+<div id="s2" class="screen">
+  <h1>Dear Bear</h1>
+  <p>
+    You are my comfort, my chaos, my calm,  
+    and the person I want to choose every single day.
+  </p>
+  <button onclick="show('s3')">One more thing… 🥺</button>
+</div>
+
+<!-- SCREEN 3 -->
+<div id="s3" class="screen">
+  <h1>Listen to my heart 💘</h1>
+  <p>
+    If my future has a heartbeat,  
+    it beats only for you.
+  </p>
+  <button onclick="show('proposal')">Just one last thing 🫶</button>
+</div>
+
+<!-- FIRST PROPOSAL -->
+<div id="proposal" class="screen">
+  <h1>Will you be my Valentine, Bear? 🌹</h1>
+  <button onclick="sendYes()">YES 💖</button>
+  <button class="no-btn" onclick="show('ring')">NO 🙈</button>
+</div>
+
+<!-- RING PROPOSAL -->
+<div id="ring" class="screen">
+  <h1>💍 Bear… wait</h1>
+  <p>
+    I’m asking again because I truly mean it.
+  </p>
+  <button onclick="sendYes()">YES 💖</button>
+  <button
+    id="runaway"
+    class="no-btn"
+    onmouseover="runAway()"
+    ontouchstart="runAway()">
+    NO 🙈
+  </button>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function playMusic() {
+    const m = document.getElementById("music");
+    m.volume = 0.4;
+    m.play();
+  }
+
+  function sendYes() {
+    const msg = encodeURIComponent(
+      "Bear said YES 🧸❤️\n\nHappy Valentine’s Day 💖"
+    );
+    window.location.href =
+      "https://wa.me/919289472281?text=" + msg;
+  }
+
+  // VERY FAST runaway 😈
+  function runAway() {
+    const btn = document.getElementById("runaway");
+    const x = Math.random() * 600 - 300;
+    const y = Math.random() * 600 - 300;
+    btn.style.transition = "transform 0.06s linear";
+    btn.style.transform = `translate(${x}px, ${y}px)`;
+  }
+</script>
+
+</body>
+</html>
