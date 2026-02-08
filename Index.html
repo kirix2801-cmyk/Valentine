@@ -5,7 +5,8 @@
   <title>For My Bear ❤️</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Clean readable font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     body {
@@ -14,157 +15,204 @@
       background: linear-gradient(135deg, #ff9a9e, #fad0c4);
       color: #fff;
       text-align: center;
+      overflow-x: hidden;
     }
 
-    .screen {
+    .section {
       min-height: 100vh;
-      display: none;
-      padding: 40px 20px;
-      box-sizing: border-box;
-    }
-
-    .screen.active {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 14px;
+      font-size: 2.1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      margin-bottom: 10px;
     }
 
     p {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       max-width: 620px;
-      margin: 0 auto 20px;
-      line-height: 1.6;
+      line-height: 1.75;
+      font-weight: 300;
     }
 
-    a.music-link {
-      color: #fff;
-      font-weight: 600;
-      text-decoration: underline;
-      cursor: pointer;
+    .heart {
+      font-size: 3rem;
+      margin: 12px 0;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
     }
 
     button {
-      padding: 14px 34px;
-      font-size: 1rem;
+      margin-top: 18px;
+      padding: 14px 36px;
+      font-size: 1.05rem;
+      font-weight: 500;
       border: none;
       border-radius: 999px;
       background: #ff4b5c;
       color: #fff;
       cursor: pointer;
-      margin: 10px;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+      transition: transform 0.15s ease;
+    }
+
+    button:hover {
+      transform: scale(1.08);
     }
 
     .no-btn {
       background: #444;
       position: relative;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    .floating-hearts span {
+      position: fixed;
+      bottom: -20px;
+      font-size: 18px;
+      animation: floatUp 6s linear infinite;
+      opacity: 0.75;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-110vh); opacity: 0; }
+    }
   </style>
 </head>
-
 <body>
 
-<!-- BACKGROUND MUSIC (USER-TRIGGERED ONLY) -->
-<audio id="music" preload="auto">
-  <source src="romeo-juliet.mp3" type="audio/mpeg">
-</audio>
+  <!-- Background Music (plays after click) -->
+  <audio id="bgMusic" src="romeo-juliet.mp3" loop></audio>
 
-<!-- SCREEN 1 -->
-<div id="s1" class="screen active">
-  <h1>Hey my Bear 🧸❤️</h1>
+  <!-- Section 1 -->
+  <div class="section">
+    <h1>Hey my Bear 🧸❤️</h1>
+    <p><i>Tap once for a little surprise 🎶</i></p>
+    <p>
+      From the moment you came into my life,  
+      everything started feeling softer, warmer, and more… us.
+    </p>
+    <div class="heart">❤️</div>
+    <button onclick="playMusic(); nextSection('s2')">
+      Bear, come closer 💕
+    </button>
+  </div>
 
-  <p>
-    <a class="music-link" onclick="playMusic()">Tap here for some music 🎶</a>
-  </p>
+  <!-- Section 2 -->
+  <div id="s2" class="section hidden">
+    <h2>Dear Bear,</h2>
+    <p>
+      You are my comfort, my chaos, my calm,  
+      and the person I want to choose every single day.
+    </p>
+    <div class="heart">💖</div>
+    <button onclick="nextSection('s3')">One more thing… 🥺</button>
+  </div>
 
-  <p>
-    From the moment you came into my life,  
-    everything started feeling softer, warmer, and more… us.
-  </p>
+  <!-- Section 3 -->
+  <div id="s3" class="section hidden">
+    <h2>Bear… listen to my heart 💘</h2>
+    <p>
+      If my future has a heartbeat,  
+      it beats only for you.
+    </p>
+    <div class="heart">💞</div>
+    <button onclick="nextSection('s4')">Just one last thing 🫶</button>
+  </div>
 
-  <button onclick="show('s2')">Bear, come closer 💕</button>
-</div>
+  <!-- First Proposal -->
+  <div id="s4" class="section hidden">
+    <h1>Will you be my Valentine, Bear? 🌹</h1>
+    <div class="heart">❤️</div>
+    <button onclick="sendYes()">YES 💖</button>
+    <button class="no-btn" onclick="showRing()">NO 🙈</button>
+  </div>
 
-<!-- SCREEN 2 -->
-<div id="s2" class="screen">
-  <h1>Dear Bear</h1>
-  <p>
-    You are my comfort, my chaos, my calm,  
-    and the person I want to choose every single day.
-  </p>
-  <button onclick="show('s3')">One more thing… 🥺</button>
-</div>
+  <!-- Ring Proposal -->
+  <div id="ring" class="section hidden">
+    <h1>💍 Bear, wait…</h1>
+    <p>
+      I’m asking again because I truly mean it.
+      <br><br>
+      Will you be my Valentine?
+    </p>
+    <div class="heart">💍❤️</div>
+    <button onclick="sendYes()">YES 💖</button>
+    <button
+      id="runaway"
+      class="no-btn"
+      onmouseover="runAway()"
+      ontouchstart="runAway()">
+      NO 🙈
+    </button>
+  </div>
 
-<!-- SCREEN 3 -->
-<div id="s3" class="screen">
-  <h1>Listen to my heart 💘</h1>
-  <p>
-    If my future has a heartbeat,  
-    it beats only for you.
-  </p>
-  <button onclick="show('proposal')">Just one last thing 🫶</button>
-</div>
+  <div class="floating-hearts" id="hearts"></div>
 
-<!-- FIRST PROPOSAL -->
-<div id="proposal" class="screen">
-  <h1>Will you be my Valentine, Bear? 🌹</h1>
-  <button onclick="sendYes()">YES 💖</button>
-  <button class="no-btn" onclick="show('ring')">NO 🙈</button>
-</div>
-
-<!-- RING PROPOSAL -->
-<div id="ring" class="screen">
-  <h1>💍 Bear… wait</h1>
-  <p>
-    I’m asking again because I truly mean it.
-  </p>
-  <button onclick="sendYes()">YES 💖</button>
-  <button
-    id="runaway"
-    class="no-btn"
-    onmouseover="runAway()"
-    ontouchstart="runAway()">
-    NO 🙈
-  </button>
-</div>
-
-<script>
-  function show(id) {
-    document.querySelectorAll('.screen')
-      .forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  function playMusic() {
-    const m = document.getElementById("music");
-    m.volume = 0.4;
-
-    const p = m.play();
-    if (p !== undefined) {
-      p.catch(() => {
-        alert("Tap once more to start the music 🎶");
-      });
+  <script>
+    function playMusic() {
+      const music = document.getElementById("bgMusic");
+      music.volume = 0.4;
+      music.play();
     }
-  }
 
-  function sendYes() {
-    const msg = encodeURIComponent(
-      "Bear said YES 🧸❤️\n\nHappy Valentine’s Day 💖"
-    );
-    window.location.href =
-      "https://wa.me/919289472281?text=" + msg;
-  }
+    function nextSection(id) {
+      document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
 
-  function runAway() {
-    const btn = document.getElementById("runaway");
-    const x = Math.random() * 600 - 300;
-    const y = Math.random() * 600 - 300;
-    btn.style.transition = "transform 0.06s linear";
-    btn.style.transform = `translate(${x}px, ${y}px)`;
-  }
-</script>
+    function showRing() {
+      nextSection('ring');
+    }
+
+    function sendYes() {
+      const msg = encodeURIComponent(
+        "Bear said YES 🧸❤️\n\nHappy Valentine’s Day 💖"
+      );
+      window.location.href =
+        "https://wa.me/919289472281?text=" + msg;
+    }
+
+    // FAST runaway button 😈
+    function runAway() {
+      const btn = document.getElementById("runaway");
+      const x = Math.random() * 400 - 200;
+      const y = Math.random() * 400 - 200;
+
+      btn.style.transition = "transform 0.08s linear";
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    setInterval(() => {
+      const heart = document.createElement('span');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      document.getElementById('hearts').appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  </script>
 
 </body>
 </html>
